@@ -1,0 +1,207 @@
+    .body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 1180px;
+      margin: 0 auto;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background: #2B80DD;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 80px;
+    }
+
+    .logo {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .search {
+      display: flex;
+      border: 1px solid #999;
+    }
+
+    .search input {
+      height: 35px;
+      border: none;
+      padding: 0 10px;
+    }
+
+    .search button {
+      border: none;
+      background: #ccc;
+      padding: 0 10px;
+    }
+
+    .cart {
+      text-align: center;
+    }
+
+    .cart a {
+      text-decoration: none;
+      text-align: center;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    /* PRODUCTS */
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f7fb;
+  color: #1f2937;
+}
+
+.detail-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.back-link {
+  display: inline-flex;
+  margin-bottom: 24px;
+  color: #2b80dd;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.detail-card {
+  display: grid;
+  grid-template-columns: minmax(280px, 420px) 1fr;
+  gap: 32px;
+  padding: 32px;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+}
+
+.detail-image-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  border-radius: 16px;
+  background: white;
+}
+
+.detail-image-wrap img {
+  width: 100%;
+  max-width: 360px;
+}
+
+.detail-category {
+  margin: 0 0 12px;
+  color: #2b80dd;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.detail-content h1 {
+  margin: 0 0 16px;
+  font-size: 30px;
+  line-height: 1.35;
+}
+
+.detail-price {
+  margin: 0 0 16px;
+  color: #d32f2f;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.detail-description {
+  margin: 0 0 24px;
+  line-height: 1.7;
+  color: #4b5563;
+}
+
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.add-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+}
+.view-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.add-btn {
+  background: #2b80dd;
+  color: #ffffff;
+}
+
+.add-btn:hover {
+  scale: 1.5px;
+}
+
+.view-btn {
+  border: 1px solid #2b80dd;
+  color: #2b80dd;
+}
+
+.view-btn:hover {
+  scale: 1.5px;
+}
+
+
+/* FOOTER */
+    .footer {
+      margin-top: 20px;
+      background: #2B80DD;
+      border-top: 1px solid #ccc;
+      padding: 20px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer h3 {
+      margin-top: 0;
+    }
+
+
+
+
+    .footer {
+      margin-top: 20px;
+      margin-left: 0px;
+      margin-bottom: 0px;
+      margin-right: 0px;
+      background-color: #2B80DD;
+      color: white;
+      height: 200px;
+      font-size: 20px;
+    }

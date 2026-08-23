@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng</title>
+    <link rel="stylesheet" href="./style/shopping-cart.css">
+</head>
+<body>
+    <div class="navbar">
+    <div class="container navbar-inner">
+      <a href="./home.html"><div class="logo">LaptopStore</div></a>
+
+      <div class="search">
+        <input type="text" placeholder="Tìm sản phẩm">
+        <button>Tìm</button>
+      </div>
+      <div class="cart">
+        🛒<br><a href="./shopping-cart.html">Giỏ Hàng</a>
+      </div>
+    </div>
+  </div>
+    
+    <div class="container shopping-cart">
+        <h2>Giỏ Hàng Của Bạn</h2>
+        <table id="cart-table">
+          
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Sản phẩm</th>
+            <th>Giá</th>
+            <th>Số lượng</th>
+            <th>Tổng</th>
+            <th>Xóa</th>
+        </tr>
+    </thead>
+
+    <tbody id="cart-items">
+    </tbody>
+
+    <tfoot>
+        <tr>
+          <td colspan="4" class="cart-item-label">Tổng sản phẩm</td>
+            <td id="cart-quantity">0</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td colspan="4" class="cart-total-label">Tổng Tiền</td>
+            <td id="cart-total">0 VND</td>
+            <td></td>
+        </tr>
+    </tfoot>
+</table>
+    </div>
+
+
+
+
+
+    <div class="footer">
+    <div class="container footer-inner">
+      <div>
+        <h3>LaptopStore</h3>
+        <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP.HCM</p>
+        <img src="./assets/home/bct.png" alt="">
+      </div>
+
+      <div>
+        <h3>Liên hệ</h3>
+        <p>Hotline: 0123456789</p>
+      </div>
+    </div>
+  </div>
+<script src="./script/shopping-cart.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+<!-- // thead: dùng để nhóm nội dung tiêu đề của một bảng
+// tbody: dùng để nhóm nội dung chính của một bảng
+// tfoot: dùng để nhóm nội dung chân của một bảng
+// tr: dùng để định nghĩa một hàng trong bảng
+// th: dùng để định nghĩa một ô tiêu đề trong bảng
+// td: dùng để định nghĩa một ô dữ liệu trong bảng -->

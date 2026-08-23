@@ -1,0 +1,168 @@
+
+    .body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 1180px;
+      margin: 0 auto;
+    }
+
+    /* NAVBAR */
+    .navbar {
+      background: #2B80DD;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      height: 80px;
+    }
+
+    .logo {
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .search {
+      display: flex;
+      border: 1px solid #999;
+    }
+
+    .search input {
+      height: 35px;
+      border: none;
+      padding: 0 10px;
+    }
+
+    .search button {
+      border: none;
+      background: #ccc;
+      padding: 0 10px;
+    }
+
+    .cart {
+      text-align: center;
+    }
+
+    .cart a {
+      text-decoration: none;
+      text-align: center;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .buttons a,
+    .buttons button {
+      text-decoration: none;
+      background: white;
+      color: #2B80DD;
+      border-radius: 4px;
+      padding: 8px 12px;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+
+    /* PRODUCTS */
+    .products {
+      margin-top: 20px;
+    }
+
+    .products h2 {
+      margin-bottom: 10px;
+    }
+
+    .product-list {
+      display: flex;
+      gap: 10px;
+    }
+
+    .product {
+      width: 25%;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #fafafa;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+    }
+
+    .product h3 {
+      font-size: 16px;
+      margin: 0 0 10px 0;
+    }
+
+    .price {
+      font-weight: bold;
+      color: red;
+      font-size: 18px;
+    }
+
+    /* FOOTER */
+    .footer {
+      margin-top: 20px;
+      background: #2B80DD;
+      border-top: 1px solid #ccc;
+      padding: 20px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .footer h3 {
+      margin-top: 0;
+    }
+
+
+
+
+    .footer {
+      margin-top: 20px;
+      margin-left: 0px;
+      margin-bottom: 0px;
+      margin-right: 0px;
+      background-color: #2B80DD;
+      color: white;
+      height: 200px;
+      font-size: 20px;
+    }
+
+
+
+    .title {
+      background-color: #2B80DD;
+      color: white;
+      padding: 10px;
+      max-width: 400px;
+      border-radius: 5px;
+    }
+
+    .btn {
+      background-color: #2B80DD;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 20px;
+    }
