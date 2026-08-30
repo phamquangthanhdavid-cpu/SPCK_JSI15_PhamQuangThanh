@@ -3,8 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LaptopStore</title>
+  <title fs-3>LaptopStore</title fs-3>
   <link rel="stylesheet" href="style/home.css">
+
+      <!-- Firebase -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-app-compat.min.js"
+        integrity="sha512-gCJuoyvPlJMaTPkYPfyfEt1KYPvoEE9PgGHlOU+Qtg+kLbBfEbiiim4PDj2ATWLc6BN0irZnNbdgzCtX53vjXQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-firestore-compat.min.js"
+        integrity="sha512-Xxpv+NpwNyir+77oEME5XeixRoRLrI4eY0bBZSMHgWLEFbc0f+JP4Nax3t/qDuYg1hgWrSl8pUapb+AO5Lp1jA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-storage-compat.min.js"
+        integrity="sha512-l/ieVoEShBQI9lKOdMY4AAV9rzEE5YHKF8XB4m3Qn3DtK9AhYSOgyDWrL2XH1lhKS4Fde+PNoDiBoT7UhcP23A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+    <!-- Firebase Authentication -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-auth-compat.min.js" integrity="sha512-PgwIBKz/MWPvQvKq7MUWB5x5aCyiiXTnAtbUGqbBvylcD/oASXh8wap5g1lWpzPmNraLXWzuWx8bkZ+reKYoyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- Firebase configuration script -->
+    <script src="./script/firebase-config.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./style/style.css">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
+
+    <!-- Font Awesome -->
+     <script src="https://kit.fontawesome.com/b47a1c1ea4.js" crossorigin="anonymous"></script>
+
 </head>
 <body>
   <div class="navbar">
@@ -37,7 +71,7 @@
 
   <div class="container products">
     <div class="ultrabook">
-    <h2 class="title">Laptop Học Tập - Văn Phòng</h2>
+    <h2 class="title fs-3">Laptop Học Tập - Văn Phòng</h2>
 
     <div id="product" class="product-list">      
       <div id="product" class="product">
@@ -67,7 +101,7 @@
     </div>
 
     <div class="gaming">
-    <h2 class="title">Laptop Gaming</h2>
+    <h2 class="title fs-3">Laptop Gaming</h2>
 
     <div class="product-list">
       <div id="product" class="product">
@@ -97,7 +131,7 @@
     </div>
 
     <div class="dohoa">
-    <h2 class="title">Laptop Đồ Họa</h2>
+    <h2 class="title fs-3">Laptop Đồ Họa</h2>
 
     <div class="product-list">
       <div id="product" class="product">
@@ -127,7 +161,7 @@
     </div>
 
     <div class="mongnhecaocap">
-    <h2 class="title">Laptop Mỏng Nhẹ Cao Cấp</h2>
+    <h2 class="title fs-3">Laptop Mỏng Nhẹ Cao Cấp</h2>
 
     <div class="product-list">
       <div id="product" class="product">
@@ -157,7 +191,7 @@
     </div>
 
     <div class="likenew">
-    <h2 class="title">Laptop Like New</h2>
+    <h2 class="title fs-3">Laptop Like New</h2>
 
     <div class="product-list">
       <div id="product" class="product"> 
@@ -187,7 +221,7 @@
     </div>
 
     <div class="phukien">
-    <h2 class="title">Phụ kiện</h2>
+    <h2 class="title fs-3">Phụ kiện</h2>
 
     <div class="product-list">
       <div id="product" class="product">
