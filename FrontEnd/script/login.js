@@ -1,25 +1,28 @@
-var btnLogin = document.getElementById("btn-login");
+const btnLogin = document.getElementById("btn-login");
 
-btnLogin.addEventListener("click", function () {
-  var username = document.getElementById("username").value.trim();
-  var password = document.getElementById("password").value;
-  var users = JSON.parse(localStorage.getItem("users")) || [];
-
-  if (username === "" || password === "") {
-    alert("Please enter username and password.");
-    return;
-  }
-
-  var userLogin = users.find(function (user) {
-    return user.username === username && user.password === password;
-  });
-
-  if (!userLogin) {
-    alert("Username or password is incorrect.");
-    return;
-  }
-
-  localStorage.setItem("userLoggedIn", JSON.stringify(userLogin));
-  alert("Login success!");
-  window.location.href = "./home.html";
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        currentUser = user;
+        alert("User is signed in: " + user.email);
+        window.location.href = "./home.html"; // Redirect to home page or dashboard
+    } 
 });
+
+btnLogin.addEventListener("click", async (e) => {
+    e.preventDefault(); //Ngăn cho form submit lại trang
+    const email = document.getElementById("txt-email").value.trim();
+    const password = document.getElementById("txt-password").value.trim();
+
+    firebase.auth().signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            // Signed in
+            var user = userCredential.user;
+            alert("Login successful! Welcome back.");
+            // Optionally, redirect to home page or dashboard
+            window.location.href = "./home.html"; // Change this to your desired page
+        })
+        .catch((error) => {
+            console.error("Error logging in:", error);
+            alert("Error logging in. Please check your email and password.");
+        });
+})

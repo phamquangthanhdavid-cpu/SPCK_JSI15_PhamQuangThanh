@@ -1,72 +1,56 @@
-var registerBtn = document.getElementById("registerBtn");
+const btnSignUp = document.getElementById("registerBtn");
 
-registerBtn.addEventListener("click", function() {
-    
-    var username = document.getElementById("txt-username").value.trim();
-    var email = document.getElementById("txt-email").value.trim();
-    var password = document.getElementById("txt-password").value;
-    var confirmPassword = document.getElementById("txt-confirm-password").value;
-    
-    if(username.length < 6)
-        alert("Username must be at least 6 characters long.");
-    if(username.includes(" "))
-        alert("Username cannot contain spaces.");
+firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+        currentUser = user;
+        alert("User is signed in: " + user.email);
+        window.location.href = "./home.html"; // Redirect to home page or dashboard
+    } 
+});
 
-    // if(email.includes("@") === false || email.includes(".") === false)
-    if(!email.includes("@") || !email.includes("."))
-        alert("Please enter a valid email address.");
+btnSignUp.addEventListener("click", async (e) => {
+  e.preventDefault(); //Ngăn cho form submit lại trang
 
-    var lowercaseRegex = /[a-z]/g;
-    var uppercaseRegex = /[A-Z]/g;
-    var numberRegex = /[0-9]/g;
+  //Lấy dữ liệu từ form
+  const email = document.getElementById("txt-email").value;
+  const password = document.getElementById("txt-password").value;
+  const confirmPassword = document.getElementById("txt-confirm-password").value;
 
-    if(password.length < 8)
-        alert("Password must be at least 8 characters long.");
-    
-    else if(password.match(lowercaseRegex) === null)
-        alert("Password must contain at least one lowercase letter.");
+  if (password !== confirmPassword) {
+    alert("Passwords do not match!");
+    return;
+  }
 
-    else if(password.match(uppercaseRegex) === null)
-        alert("Password must contain at least one uppercase letter.");
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters long!");
+    return;
+  }
 
-    else if(password.match(numberRegex) === null)
-        alert("Password must contain at least one number.");
+  //Kiểm tra email đã tồn tại chưa
+  firebase.auth().fetchSignInMethodsForEmail(email)
+    .then((methods) => {
+      if (methods.length > 0) {
+        alert("Email already exists. Please use a different email.");
+        return;
+      }
+    })
+    .catch((error) => {
+      console.error("Error checking email:", error);
+      alert("Error checking email. Please try again.");
+    });
 
-    else if(password !== confirmPassword)
-        alert("Password and Confirm Password do not match.");
-
-    else {
-        var users = localStorage.getItem("users");
-        if(users == null) {
-            users = [];
-            users.push({
-                username: username,
-                email: email,
-                password: password
-            });
-            localStorage.setItem("users", JSON.stringify(users));
-        }
-        else {
-            users = JSON.parse(users);
-            var isUserExists = false;
-            users.forEach(element => {
-                if(element.username === username) {
-                    alert("Username already exists. Please choose a different username.");
-                    isUserExists = true;
-                    return;
-                }
-            });
-            if(isUserExists) return;
-            users.push({
-                username: username,
-                email: email,
-                password: password
-            });
-            localStorage.setItem("users", JSON.stringify(users));
-            
-        }
-        alert("Account created successfully!");
-        window.location.href = "/login.html";
-    }
-
+  firebase
+    .auth()
+    .createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Signed in
+      var user = userCredential.user;
+      alert("Sign up successful! You can now log in.");
+      // Optionally, redirect to login page or home page
+      window.location.href = "./login.html";
+    })
+    .catch((error) => {
+      console.error("Error signing up:", error);
+      alert("Error signing up. Please try again.");
+    });
 });

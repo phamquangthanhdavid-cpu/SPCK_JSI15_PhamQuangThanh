@@ -76,6 +76,59 @@
     }
 
 
+
+
+
+
+
+    /* BTN-TXS */
+    .btn-txs {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      margin-left: 800px;
+    }
+    .btn-them {
+      background-color: #2B80DD;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .btn-xoa {
+      background-color: #dc3545;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    .btn-sua {
+      background-color: #ffc107;
+      color: #212529;
+      border: none;
+      padding: 10px 20px;
+      margin-right: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+
+
+
+
+
     /* PRODUCTS */
     .products {
       margin-top: 20px;
@@ -114,6 +167,11 @@
       color: red;
       font-size: 18px;
     }
+
+
+
+
+
 
     /* FOOTER */
     .footer {
