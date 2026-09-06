@@ -45,7 +45,31 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary pe-5 ps-5">
+
+    <div class="navbar">
+    <div class="container navbar-inner">
+      <a href="./home.html"><div class="logo">LaptopStore</div></a>
+
+      <div class="search">
+        <input type="text" placeholder="Tìm sản phẩm">
+        <button>Tìm</button>
+      </div>
+
+      <div class="cart">
+        🛒<br><a href="./shopping-cart.html">Giỏ Hàng</a>
+      </div>
+
+      <div class="buttons">
+        <a id="login" href="./login.html">Login</a>
+        <a id="register" href="./register.html">Register</a>
+        <button id="logout" type="button">Logout</button>
+      </div>
+    </div>
+  </div>
+
+
+
+    <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary pe-5 ps-5">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Admin page</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -76,7 +100,7 @@
                 </div>
             </div>
         </div>
-    </nav>
+    </nav> -->
 
     <section class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -146,12 +170,29 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="btn-save-product">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
 
+
+
+
+      <div class="footer">
+    <div class="container footer-inner">
+      <div>
+        <h3>LaptopStore</h3>
+        <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP.HCM</p>
+        <img src="./assets/home/bct.png" alt="">
+      </div>
+
+      <div>
+        <h3>Liên hệ</h3>
+        <p>Hotline: 0123456789</p>
+      </div>
+    </div>
+  </div>
 </body>
 <script src="./script/admin.js"></script>
 
