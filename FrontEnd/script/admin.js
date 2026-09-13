@@ -1,3 +1,5 @@
+const IMAGE_SERVER_URL = 'http://localhost:3000';
+
 document.addEventListener("DOMContentLoaded", function () {
     var productName = document.getElementById("product-name");
     var productPrice = document.getElementById("product-price");
@@ -94,28 +96,45 @@ document.addEventListener("DOMContentLoaded", function () {
         btnSaveProduct.disabled = true;
         btnSaveProduct.innerText = "Saving...";
 
-        try {
-            var imageURL = await uploadProductImage(imageFile);
+        
+        const formData = new FormData();
+        formData.append("image", document.getElementById("product-image").files[0]);
 
-            await db.collection("product").add({
-                name: name,
-                price: price,
-                stock: stock,
-                description: description,
-                category: category,
-                image: imageURL,
-            });
+        const respone = await fetch(`${IMAGE_SERVER_URL}/upload`, {
+            method: "POST",
+            body: formData,});
 
-            alert("Product added successfully!");
-            clearProductForm();
-            loadProducts();
-            closeAddProductModal();
-        } catch (error) {
-            console.error("Error adding product:", error);
-            alert("Error adding product: " + error.message);
-        } finally {
-            btnSaveProduct.disabled = false;
-            btnSaveProduct.innerText = "Save changes";
+        if (!respone.ok) {
+            console.error("Error uploading image:", respone.statusText);
+            return;
+        }
+        else {
+            const data = await respone.json();
+            const imageUrl = data.url;
+            console.log("Image uploaded successfully:", imageUrl);
+
+            try {
+                await db.collection("product").add({
+                    name: name,
+                    price: price,
+                    stock: stock,
+                    description: description,
+                    category: category,
+                    image: imageUrl,
+                });
+
+                alert("Product added successfully!");
+                clearProductForm();
+                loadProducts();
+                closeAddProductModal();
+            } catch (error) {
+                console.error("Error adding product:", error);
+                alert("Error adding product: " + error.message);
+            } finally {
+                btnSaveProduct.disabled = false;
+                btnSaveProduct.innerText = "Save changes";
+            }
+
         }
     });
 
