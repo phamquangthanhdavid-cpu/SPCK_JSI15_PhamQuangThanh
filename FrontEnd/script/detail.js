@@ -3,6 +3,48 @@ document.addEventListener("DOMContentLoaded", function () {
   var name = document.querySelector("[data-product-name]");
   var price = document.querySelector("[data-product-price]");
   var addToCartButton = document.getElementById("add-to-cart");
+  var login = document.getElementById("login");
+  var register = document.getElementById("register");
+  var logout = document.getElementById("logout");
+
+  function showAuthButtons(user) {
+    if (!login || !register || !logout) {
+      return;
+    }
+
+    if (user) {
+      login.style.display = "none";
+      register.style.display = "none";
+      logout.style.display = "inline-block";
+    } else {
+      login.style.display = "inline-block";
+      register.style.display = "inline-block";
+      logout.style.display = "none";
+    }
+  }
+
+  function setupAuthButtons() {
+    if (!logout || typeof firebase === "undefined" || !firebase.auth) {
+      return;
+    }
+
+    logout.addEventListener("click", function () {
+      firebase.auth().signOut()
+        .then(function () {
+          alert("Đăng xuất thành công!");
+        })
+        .catch(function (error) {
+          console.error("Error signing out:", error);
+          alert("Đăng xuất thất bại. Vui lòng thử lại!");
+        });
+    });
+
+    firebase.auth().onAuthStateChanged(function (user) {
+      showAuthButtons(user);
+    });
+  }
+
+  setupAuthButtons();
 
   var savedProduct = localStorage.getItem("selectedProduct");
 

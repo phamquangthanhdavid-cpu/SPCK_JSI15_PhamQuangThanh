@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chi tiet san pham</title>
+
+    <!-- Firebase -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-app-compat.min.js"
+        integrity="sha512-gCJuoyvPlJMaTPkYPfyfEt1KYPvoEE9PgGHlOU+Qtg+kLbBfEbiiim4PDj2ATWLc6BN0irZnNbdgzCtX53vjXQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-firestore-compat.min.js"
+        integrity="sha512-Xxpv+NpwNyir+77oEME5XeixRoRLrI4eY0bBZSMHgWLEFbc0f+JP4Nax3t/qDuYg1hgWrSl8pUapb+AO5Lp1jA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-auth-compat.min.js"
+        integrity="sha512-PgwIBKz/MWPvQvKq7MUWB5x5aCyiiXTnAtbUGqbBvylcD/oASXh8wap5g1lWpzPmNraLXWzuWx8bkZ+reKYoyQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./script/firebase-config.js"></script>
+
     <link rel="stylesheet" href="./style/detail.css">
 </head>
 <body>
@@ -19,6 +32,12 @@
 
       <div class="cart">
         🛒<br><a href="./shopping-cart.html">Giỏ Hàng</a>
+      </div>
+
+      <div class="buttons">
+        <a id="login" href="./login.html">Login</a>
+        <a id="register" href="./register.html">Register</a>
+        <button id="logout" type="button">Logout</button>
       </div>
     </div>
   </div>

@@ -8,27 +8,32 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   
-  function showAuthButtons() {
-    var userLoggedIn = localStorage.getItem("userLoggedIn");
-
-    if (userLoggedIn == null) {
-      login.style.display = "inline-block";
-      register.style.display = "inline-block";
-      logout.style.display = "none";
-    } else {
+  function showAuthButtons(user) {
+    if (user) {
       login.style.display = "none";
       register.style.display = "none";
       logout.style.display = "inline-block";
+    } else {
+      login.style.display = "inline-block";
+      register.style.display = "inline-block";
+      logout.style.display = "none";
     }
   }
 
   logout.addEventListener("click", function () {
-    localStorage.removeItem("userLoggedIn");
-    alert("Đăng xuất thành công!");
-    showAuthButtons();
+    firebase.auth().signOut()
+      .then(function () {
+        alert("Đăng xuất thành công!");
+      })
+      .catch(function (error) {
+        console.error("Error signing out:", error);
+        alert("Đăng xuất thất bại. Vui lòng thử lại!");
+      });
   });
 
-  showAuthButtons();
+  firebase.auth().onAuthStateChanged(function (user) {
+    showAuthButtons(user);
+  });
 
 
 
