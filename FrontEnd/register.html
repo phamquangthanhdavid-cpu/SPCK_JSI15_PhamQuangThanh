@@ -15,10 +15,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-storage-compat.min.js"
         integrity="sha512-l/ieVoEShBQI9lKOdMY4AAV9rzEE5YHKF8XB4m3Qn3DtK9AhYSOgyDWrL2XH1lhKS4Fde+PNoDiBoT7UhcP23A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        
+
     <!-- Firebase Authentication -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-auth-compat.min.js" integrity="sha512-PgwIBKz/MWPvQvKq7MUWB5x5aCyiiXTnAtbUGqbBvylcD/oASXh8wap5g1lWpzPmNraLXWzuWx8bkZ+reKYoyQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-auth-compat.min.js"
+        integrity="sha512-PgwIBKz/MWPvQvKq7MUWB5x5aCyiiXTnAtbUGqbBvylcD/oASXh8wap5g1lWpzPmNraLXWzuWx8bkZ+reKYoyQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <!-- Firebase configuration script -->
     <script src="./script/firebase-config.js"></script>
 
@@ -41,13 +43,50 @@
     <div class="vh-100 d-flex justify-content-center align-items-center">
         <div class="card shadow p-5" style="width: 450px;">
             <h1 class="mb-3 text-center">Register</h1>
-            <input id="txt-email" class="form-control mb-3" type="text" placeholder="Email">
-            <input id="txt-password" class="form-control mb-3" type="password" placeholder="Password">
-            <input id="txt-confirm-password" class="form-control mb-3" type="password" placeholder="Confirm Password">
+            <div class="mb-3">
+                <input required id="txt-fullname" class="form-control" type="text" placeholder="Full name *">
+                <div class="invalid-feedback m-0">
+                    Full name is required.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <input required id="txt-phonenumber" class="form-control" type="text" placeholder="Phone number *">
+                <div class="invalid-feedback m-0">
+                    Phone number is required.
+                </div>
+            </div>
+            <div class="mb-3">
+                <input required id="txt-address" class="form-control" type="text" placeholder="Address *">
+                <div class="invalid-feedback m-0" >
+                    Address is required.
+                </div>
+            </div>
+            <div class="mb-3">
+                <input required id="txt-email" class="form-control" type="text" placeholder="Email *">
+                <div class="invalid-feedback m-0" id="email-feedback">
+                    Email is required.
+                </div>
+            </div>
+            <div class="mb-3">
+                <input required id="txt-password" class="form-control" type="password" placeholder="Password *">
+                <div class="invalid-feedback m-0" id="password-feedback">
+                    Password is required.
+                </div>
+            </div>
+            <div class="mb-3">
+                <input required id="txt-confirm-password" class="form-control" type="password" placeholder="Confirm Password *">
+                <div class="invalid-feedback m-0" id="confirm-password-feedback">
+                    Confirm password is required.
+                </div>
+            </div>
+
+
             <a class="text-danger fw-bolder text-decoration-none mb-3" href="./login.html">Already have an account?</a>
             <button class="btn btn-danger" id="registerBtn">Create an account</button>
         </div>
     </div>
 </body>
 <script src="./script/register.js"></script>
+
 </html>

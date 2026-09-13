@@ -3,10 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
   var register = document.getElementById("register");
   var logout = document.getElementById("logout");
   var products = document.querySelectorAll(".product");
-
-
-
-
   
   function showAuthButtons(user) {
     if (user) {
@@ -32,14 +28,11 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   firebase.auth().onAuthStateChanged(function (user) {
+    if(user && user.email == "admin@quangthanh.com") {
+      window.location.href = "./admin.html";
+    }
     showAuthButtons(user);
   });
-
-
-
-
-
-
 
   products.forEach(function (product) {
     product.addEventListener("click", function (event) {
@@ -62,3 +55,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+
+function redirectToLoginIfNotAuthenticated() {
+  firebase.auth().onAuthStateChanged(function (user) {
+    if (!user) {
+      alert("Bạn cần đăng nhập để xem chi tiết sản phẩm.");
+      window.location.href = "./login.html";
+    }
+  });
+};
