@@ -213,6 +213,9 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
 
                     <div class="col-md-2 d-flex flex-row justify-content-center align-items-center">
+                        <button class="btn btn-warning btn-edit" data-id="${productId}">
+                            <i class="fa-solid fa-pen"></i> Edit
+                        </button>
                         <button class="btn btn-danger ms-2 btn-delete" data-id="${productId}">
                             <i class="fa-solid fa-trash"></i> Delete
                         </button>
