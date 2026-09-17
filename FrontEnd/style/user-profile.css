@@ -1,0 +1,7 @@
+.rounded-circle {
+  border-radius: 50% !important;
+  background-color: #f8f9fa; /* Optional: Add a background color */
+  border: 2px solid #ccc; /* Optional: Add a border */
+  width: 70%;
+}
+
