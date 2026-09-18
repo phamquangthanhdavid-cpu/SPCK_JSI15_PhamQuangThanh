@@ -25,6 +25,8 @@
 
     <!-- Firebase configuration script -->
     <script src="./script/firebase-config.js"></script>
+    <script src="./script/navbar-check.js"></script>
+    <script src="./script/admin.js"></script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="./style/style.css">
@@ -45,62 +47,35 @@
 </head>
 
 <body>
-
     <div class="navbar">
-    <div class="container navbar-inner">
-      <a href="./home.html"><div class="logo">LaptopStore01</div></a>
-
-      <div class="search">
-        <input type="text" placeholder="Tìm sản phẩm">
-        <button>Tìm</button>
-      </div>
-
-      <div class="cart">
-        🛒<br><a href="./shopping-cart.html">Giỏ Hàng</a>
-      </div>
-
-      <div class="buttons">
-        <a id="login" href="./login.html">Login</a>
-        <a id="register" href="./register.html">Register</a>
-        <button id="logout" type="button">Logout</button>
-      </div>
-    </div>
-  </div>
+        <div class="container navbar-inner">
+            <a href="./home.html">
+                <div class="logo">LaptopStore</div>
+            </a>
 
 
 
-    <!-- <nav class="navbar navbar-expand-lg bg-body-tertiary pe-5 ps-5">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">Admin page</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Orders</a>
-                    </li>
-                </ul>
-                <div class="d-flex align-items-center" role="search">
-                    <div id="user-dropdown" class="nav-item dropdown ms-3 d-none">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="fa-regular fa-user"></i> <span id="user-email">User</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#" id="btn-logout"><i
-                                        class="fa-solid fa-right-from-bracket"></i> Logout</a></li>
-                        </ul>
-                    </div>
+            <div class="buttons">
+                <a id="login" href="./login.html">Login</a>
+                <a class="ms-3" id="register" href="./register.html">Register</a>
+
+                <a href="./shopping-cart.html" class="ms-3" id="btn-cart" style="display: none;"><i
+                        class="fa-solid fa-cart-shopping"></i></a>
+
+                <div class="dropdown ms-3" id="user-dropdown" style="display: none;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <span id="user-name">User</span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="./user-profile.html">Profile</a></li>
+                        <li><a class="dropdown-item" href="./order-history.html">Order History</a></li>
+                        <li><a class="dropdown-item" href="#" id="logout">Logout</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </nav> -->
+    </div>
 
     <section class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-3">
@@ -126,7 +101,8 @@
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="product-name" class="form-label">Product Name <span class="text-danger">*</span></label>
+                        <label for="product-name" class="form-label">Product Name <span
+                                class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="product-name" placeholder="Enter product name">
                     </div>
 
@@ -143,17 +119,21 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="product-category" class="form-label">Category <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="product-category" placeholder="Enter product category">
+                        <label for="product-category" class="form-label">Category <span
+                                class="text-danger">*</span></label>
+                        <input type="text" class="form-control" id="product-category"
+                            placeholder="Enter product category">
                     </div>
 
                     <div class="mb-3">
-                        <label for="product-description" class="form-label">Product Description <span class="text-danger">*</span></label>
+                        <label for="product-description" class="form-label">Product Description <span
+                                class="text-danger">*</span></label>
                         <textarea class="form-control" id="product-description" rows="3"></textarea>
                     </div>
 
                     <div class="mb-3">
-                        <label for="product-image" class="form-label">Product Image <span class="text-danger">*</span></label>
+                        <label for="product-image" class="form-label">Product Image <span
+                                class="text-danger">*</span></label>
                         <input class="form-control" type="file" id="product-image" accept="image/*">
                     </div>
 
@@ -169,21 +149,19 @@
 
 
 
-      <div class="footer">
-    <div class="container footer-inner">
-      <div>
-        <h3>LaptopStore</h3>
-        <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP.HCM</p>
-        <img src="./assets/home/bct.png" alt="">
-      </div>
+    <div class="footer">
+        <div class="container footer-inner">
+            <div>
+                <h3>LaptopStore</h3>
+                <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP.HCM</p>
+                <img src="./assets/home/bct.png" alt="">
+            </div>
 
-      <div>
-        <h3>Liên hệ</h3>
-        <p>Hotline: 0123456789</p>
-      </div>
+            <div>
+                <h3>Liên hệ</h3>
+                <p>Hotline: 0123456789</p>
+            </div>
+        </div>
     </div>
-  </div>
 </body>
-<script src="./script/admin.js"></script>
-
 </html>

@@ -8,56 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
   var productDescription = document.getElementById("product-description");
   var productImage = document.getElementById("product-image");
   var btnSaveProduct = document.getElementById("btn-save-product");
-  var login = document.getElementById("login");
-  var register = document.getElementById("register");
-  var logout = document.getElementById("logout");
   const productsContainer = document.getElementById("products-container");
 
-  setupAuthButtons();
   loadProducts();
 
-  function showAuthButtons(user) {
-    if (!login || !register || !logout) {
-      return;
-    }
-
-    if (user) {
-      login.style.display = "none";
-      register.style.display = "none";
-      logout.style.display = "inline-block";
-    } else {
-      login.style.display = "inline-block";
-      register.style.display = "inline-block";
-      logout.style.display = "none";
-    }
-  }
-
-  function setupAuthButtons() {
-    if (!logout || typeof firebase === "undefined" || !firebase.auth) {
-      return;
-    }
-
-    logout.addEventListener("click", function () {
-      firebase
-        .auth()
-        .signOut()
-        .then(function () {
-          alert("Đăng xuất thành công!");
-        })
-        .catch(function (error) {
-          console.error("Error signing out:", error);
-          alert("Đăng xuất thất bại. Vui lòng thử lại!");
-        });
-    });
-
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user && user.email != "admin@quangthanh.com") {
-        window.location.href = "./home.html";
-      }
-      showAuthButtons(user);
-    });
-  }
-
+  
   btnSaveProduct.addEventListener("click", async function (event) {
     event.preventDefault();
 

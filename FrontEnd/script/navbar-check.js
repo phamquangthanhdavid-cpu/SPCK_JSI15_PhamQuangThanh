@@ -19,8 +19,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   firebase.auth().onAuthStateChanged(function (user) {
-    if (!user) window.location.href = "./login.html";
-    if (user.email == "admin@quangthanh.com") {
+    if (!user) {
+        if (window.location.pathname === "/FrontEnd/admin.html" || window.location.pathname === "/FrontEnd/user-profile.html")
+            window.location.href = "./login.html";
+        else 
+            return;
+    }
+    if (user.email == "admin@quangthanh.com" && window.location.pathname !== "/FrontEnd/admin.html") {
       window.location.href = "./admin.html";
     }
     showAuthButtons(user);
