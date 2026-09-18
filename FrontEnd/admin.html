@@ -104,37 +104,62 @@
                         <label for="product-name" class="form-label">Product Name <span
                                 class="text-danger">*</span></label>
                         <input type="text" class="form-control" id="product-name" placeholder="Enter product name">
+                        <div class="invalid-feedback m-0">
+                            Product name is required.
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="product-price" class="form-label">Price <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="product-price" placeholder="Enter product price"
                             step="0.01">
+                        <div class="invalid-feedback m-0">
+                            Please enter a valid product price.
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="product-stock" class="form-label">Stock<span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="product-stock" placeholder="Enter product stock"
                             step="1">
+                        <div class="invalid-feedback m-0">
+                            Please enter a valid product stock.
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="product-category" class="form-label">Category <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="product-category"
-                            placeholder="Enter product category">
+                        <select id="product-category" class="form-select" aria-label="Default select example">
+                            <option value="">Open this select menu</option>
+                            <option value="VP">Laptop Học Tập - Văn Phòng</option>
+                            <option value="GA">Laptop Gaming</option>
+                            <option value="DH">Laptop Đồ Họa</option>
+                            <option value="MN">Laptop Mỏng Nhẹ Cao Cấp</option>
+                            <option value="LN">Laptop Like New</option>
+                            <option value="PK">Phụ kiện</option>
+                        </select>
+                        <div class="invalid-feedback m-0">
+                            Category is required.
+                        </div>
                     </div>
 
                     <div class="mb-3">
-                        <label for="product-description" class="form-label">Product Description <span
+                        <label for="product-description" class="form-label">Description <span
                                 class="text-danger">*</span></label>
                         <textarea class="form-control" id="product-description" rows="3"></textarea>
+                        <div class="invalid-feedback m-0">
+                            Description is required.
+                        </div>
                     </div>
 
                     <div class="mb-3">
                         <label for="product-image" class="form-label">Product Image <span
                                 class="text-danger">*</span></label>
                         <input class="form-control" type="file" id="product-image" accept="image/*">
+                        <div class="invalid-feedback m-0">
+                            Product Image is required.
+                        </div>
                     </div>
 
                 </div>
@@ -145,9 +170,6 @@
             </div>
         </div>
     </div>
-
-
-
 
     <div class="footer">
         <div class="container footer-inner">
@@ -164,4 +186,5 @@
         </div>
     </div>
 </body>
+
 </html>

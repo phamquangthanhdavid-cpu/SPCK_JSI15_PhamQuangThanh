@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   
   btnSaveProduct.addEventListener("click", async function (event) {
     event.preventDefault();
+    var isValid = true;
 
     var name = productName.value.trim();
     var price = Number(productPrice.value);
@@ -24,34 +25,37 @@ document.addEventListener("DOMContentLoaded", function () {
     var imageFile = productImage.files[0];
 
     if (name === "") {
-      alert("Please enter product name!");
-      return;
+      productName.classList.add("is-invalid");
+      isValid = false;
     }
 
     if (!Number.isFinite(price) || price <= 0) {
-      alert("Please enter a valid product price!");
-      return;
+      productPrice.classList.add("is-invalid");
+      isValid = false;
     }
-
-    if (!Number.isInteger(stock) || stock < 0) {
-      alert("Please enter a valid product stock!");
-      return;
+    console.log(stock)
+    if (!Number.isInteger(stock) || stock <= 0) {
+      productStock.classList.add("is-invalid");
+      isValid = false;
     }
 
     if (description === "") {
-      alert("Please enter product description!");
-      return;
+      productDescription.classList.add("is-invalid");
+      isValid = false;
     }
 
     if (productCategory.value.trim() === "") {
-      alert("Please enter product category!");
-      return;
+      productCategory.classList.add("is-invalid");
+      isValid = false;
     }
 
     if (!imageFile) {
-      alert("Please select product image!");
-      return;
+      productImage.classList.add("is-invalid");
+      isValid = false;
     }
+
+    if(isValid === false)
+      return;
 
     btnSaveProduct.disabled = true;
     btnSaveProduct.innerText = "Saving...";
@@ -181,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var stock = Number(product.stock) || 0;
 
     return `
-            <div class="card mb-3">
+            <div class="card pb-3 mb-3">
                 <div class="row g-0">
                     <div class="col-md-2 d-flex justify-content-center align-items-center">
                         <img src="${product.image || ""}" class="img-fluid rounded-start" alt="${product.name || "Product"}">
