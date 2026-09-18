@@ -1,84 +1,116 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giỏ hàng</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giỏ hàng</title>
 
-    <!-- Firebase -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-app-compat.min.js"
-        integrity="sha512-gCJuoyvPlJMaTPkYPfyfEt1KYPvoEE9PgGHlOU+Qtg+kLbBfEbiiim4PDj2ATWLc6BN0irZnNbdgzCtX53vjXQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-firestore-compat.min.js"
-        integrity="sha512-Xxpv+NpwNyir+77oEME5XeixRoRLrI4eY0bBZSMHgWLEFbc0f+JP4Nax3t/qDuYg1hgWrSl8pUapb+AO5Lp1jA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-auth-compat.min.js"
-        integrity="sha512-PgwIBKz/MWPvQvKq7MUWB5x5aCyiiXTnAtbUGqbBvylcD/oASXh8wap5g1lWpzPmNraLXWzuWx8bkZ+reKYoyQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="./script/firebase-config.js"></script>
+  <!-- Firebase -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-app-compat.min.js"
+    integrity="sha512-gCJuoyvPlJMaTPkYPfyfEt1KYPvoEE9PgGHlOU+Qtg+kLbBfEbiiim4PDj2ATWLc6BN0irZnNbdgzCtX53vjXQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-firestore-compat.min.js"
+    integrity="sha512-Xxpv+NpwNyir+77oEME5XeixRoRLrI4eY0bBZSMHgWLEFbc0f+JP4Nax3t/qDuYg1hgWrSl8pUapb+AO5Lp1jA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-auth-compat.min.js"
+    integrity="sha512-PgwIBKz/MWPvQvKq7MUWB5x5aCyiiXTnAtbUGqbBvylcD/oASXh8wap5g1lWpzPmNraLXWzuWx8bkZ+reKYoyQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-    <link rel="stylesheet" href="./style/shopping-cart.css">
+  <script src="./script/firebase-config.js"></script>
+  <script src="./script/navbar-check.js"></script>
+  <script src="./script/shopping-cart.js"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="./style/style.css">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+    integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+    crossorigin="anonymous"></script>
+
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/b47a1c1ea4.js" crossorigin="anonymous"></script>
+
+
+  <link rel="stylesheet" href="./style/shopping-cart.css">
 </head>
-<body>
-    <div class="navbar">
-    <div class="container navbar-inner">
-      <a href="./home.html"><div class="logo">LaptopStore</div></a>
 
-      <div class="search">
-        <input type="text" placeholder="Tìm sản phẩm">
-        <button>Tìm</button>
-      </div>
-      <div class="cart">
-        🛒<br><a href="./shopping-cart.html">Giỏ Hàng</a>
-      </div>
+<body>
+  <div class="navbar">
+    <div class="container navbar-inner">
+      <a href="./home.html">
+        <div class="logo">LaptopStore</div>
+      </a>
+
+
 
       <div class="buttons">
         <a id="login" href="./login.html">Login</a>
-        <a id="register" href="./register.html">Register</a>
-        <button id="logout" type="button">Logout</button>
+        <a class="ms-3" id="register" href="./register.html">Register</a>
+
+        <a href="./shopping-cart.html" class="ms-3" id="btn-cart" style="display: none;"><i
+            class="fa-solid fa-cart-shopping"></i></a>
+
+        <div class="dropdown ms-3" id="user-dropdown" style="display: none;">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <span id="user-name">User</span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="./user-profile.html">Profile</a></li>
+            <li><a class="dropdown-item" href="./order-history.html">Order History</a></li>
+            <li><a class="dropdown-item" href="#" id="logout">Logout</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-    
-    <div class="container shopping-cart">
-        <h2>Giỏ Hàng Của Bạn</h2>
-        <table id="cart-table">
-          
-    <thead>
+
+  <div class="container shopping-cart">
+    <h2>Giỏ Hàng Của Bạn</h2>
+    <table id="cart-table">
+
+      <thead>
         <tr>
-            <th>STT</th>
-            <th>Sản phẩm</th>
-            <th>Giá</th>
-            <th>Số lượng</th>
-            <th>Tổng</th>
-            <th>Xóa</th>
+          <th>STT</th>
+          <th>Sản phẩm</th>
+          <th>Giá</th>
+          <th>Số lượng</th>
+          <th>Tổng</th>
+          <th>Xóa</th>
         </tr>
-    </thead>
+      </thead>
 
-    <tbody id="cart-items">
-    </tbody>
+      <tbody id="cart-items">
+      </tbody>
 
-    <tfoot>
+      <tfoot>
         <tr>
           <td colspan="4" class="cart-item-label">Tổng sản phẩm</td>
-            <td id="cart-quantity">0</td>
-            <td></td>
+          <td id="cart-quantity">0</td>
+          <td></td>
         </tr>
 
         <tr>
-            <td colspan="4" class="cart-total-label">Tổng Tiền</td>
-            <td id="cart-total">0 VND</td>
-            <td></td>
+          <td colspan="4" class="cart-total-label">Tổng Tiền</td>
+          <td id="cart-total">0 VND</td>
+          <td></td>
         </tr>
-    </tfoot>
-</table>
-    </div>
+      </tfoot>
+    </table>
+  </div>
 
 
 
 
 
-    <div class="footer">
+  <div class="footer">
     <div class="container footer-inner">
       <div>
         <h3>LaptopStore</h3>
@@ -92,8 +124,8 @@
       </div>
     </div>
   </div>
-<script src="./script/shopping-cart.js"></script>
 </body>
+
 </html>
 
 

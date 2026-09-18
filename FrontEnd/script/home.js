@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  var login = document.getElementById("login");
-  var register = document.getElementById("register");
-  var logout = document.getElementById("logout");
   var products = document.querySelectorAll(".product");
   
   function showAuthButtons(user) {
@@ -15,24 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
       logout.style.display = "none";
     }
   }
-
-  logout.addEventListener("click", function () {
-    firebase.auth().signOut()
-      .then(function () {
-        alert("Đăng xuất thành công!");
-      })
-      .catch(function (error) {
-        console.error("Error signing out:", error);
-        alert("Đăng xuất thất bại. Vui lòng thử lại!");
-      });
-  });
-
-  firebase.auth().onAuthStateChanged(function (user) {
-    if(user && user.email == "admin@quangthanh.com") {
-      window.location.href = "./admin.html";
-    }
-    showAuthButtons(user);
-  });
 
   products.forEach(function (product) {
     product.addEventListener("click", function (event) {

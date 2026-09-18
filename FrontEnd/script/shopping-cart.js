@@ -1,26 +1,9 @@
 var cartItems = document.getElementById("cart-items");
 var cartQuantity = document.getElementById("cart-quantity");
 var cartTotal = document.getElementById("cart-total");
-var login = document.getElementById("login");
-var register = document.getElementById("register");
-var logout = document.getElementById("logout");
 var cart = JSON.parse(localStorage.getItem("cartProducts")) || [];
 
-function showAuthButtons(user) {
-  if (!login || !register || !logout) {
-    return;
-  }
 
-  if (user) {
-    login.style.display = "none";
-    register.style.display = "none";
-    logout.style.display = "inline-block";
-  } else {
-    login.style.display = "inline-block";
-    register.style.display = "inline-block";
-    logout.style.display = "none";
-  }
-}
 
 function setupAuthButtons() {
   if (!logout || typeof firebase === "undefined" || !firebase.auth) {
