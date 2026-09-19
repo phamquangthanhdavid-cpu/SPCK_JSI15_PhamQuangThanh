@@ -4,7 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Giỏ hàng</title>
+  <title fs-3>LaptopStore</title fs-3>
+  <link rel="stylesheet" href="style/home.css">
 
   <!-- Firebase -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-app-compat.min.js"
@@ -13,13 +14,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-firestore-compat.min.js"
     integrity="sha512-Xxpv+NpwNyir+77oEME5XeixRoRLrI4eY0bBZSMHgWLEFbc0f+JP4Nax3t/qDuYg1hgWrSl8pUapb+AO5Lp1jA=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-storage-compat.min.js"
+    integrity="sha512-l/ieVoEShBQI9lKOdMY4AAV9rzEE5YHKF8XB4m3Qn3DtK9AhYSOgyDWrL2XH1lhKS4Fde+PNoDiBoT7UhcP23A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- Firebase Authentication -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/12.16.0/firebase-auth-compat.min.js"
     integrity="sha512-PgwIBKz/MWPvQvKq7MUWB5x5aCyiiXTnAtbUGqbBvylcD/oASXh8wap5g1lWpzPmNraLXWzuWx8bkZ+reKYoyQ=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+  <!-- Firebase configuration script -->
   <script src="./script/firebase-config.js"></script>
   <script src="./script/navbar-check.js"></script>
-  <script src="./script/shopping-cart.js" defer></script>
+  <script src="./script/order-history.js"></script>
+
 
   <!-- CSS -->
   <link rel="stylesheet" href="./style/style.css">
@@ -37,8 +45,6 @@
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/b47a1c1ea4.js" crossorigin="anonymous"></script>
 
-
-  <link rel="stylesheet" href="./style/shopping-cart.css">
 </head>
 
 <body>
@@ -47,9 +53,6 @@
       <a href="./home.html">
         <div class="logo">LaptopStore</div>
       </a>
-
-
-
       <div class="buttons">
         <a id="login" href="./login.html">Login</a>
         <a class="ms-3" id="register" href="./register.html">Register</a>
@@ -71,42 +74,19 @@
       </div>
     </div>
   </div>
-
-  <div class="container shopping-cart mt-5 mb-5 pt-5 pb-5">
-    <h2>Giỏ Hàng Của Bạn</h2>
-    <table id="cart-table" class="able table-striped table-hover">
-      <thead>
-        <tr>
-          <th>STT</th>
-          <th>Sản phẩm</th>
-          <th>Giá</th>
-          <th>Số lượng</th>
-          <th>Tổng</th>
-          <th>Xóa</th>
-        </tr>
-      </thead>
-
-      <tbody id="cart-items">
-      </tbody>
-
-      <tfoot>
-        <tr>
-          <td colspan="4" class="cart-item-label">Tổng sản phẩm</td>
-          <td id="cart-quantity">0</td>
-          <td></td>
-        </tr>
-
-        <tr>
-          <td colspan="4" class="cart-total-label">Tổng Tiền</td>
-          <td id="cart-total">0 VND</td>
-          <td></td>
-        </tr>
-      </tfoot>
-    </table>
-    <div class="d-flex justify-content-end mt-3">
-      <button id="btn-pay" class="btn btn-primary" disabled>Thanh toán</button>
+  <!-- Content -->
+  <div class="container my-5" style="max-width: 900px;">
+    <div class="d-flex align-items-baseline justify-content-between mb-4">
+      <h2 class="mb-0">Lịch sử đơn hàng</h2>
+      <span class="text-secondary" id="order-count"></span>
     </div>
+ 
+    <!-- Loading, empty, and error states all render here -->
+    <div id="order-message" class="text-secondary">Đang tải đơn hàng...</div>
+ 
+    <div class="accordion" id="order-list"></div>
   </div>
+
 
   <div class="footer">
     <div class="container footer-inner">
@@ -122,6 +102,7 @@
       </div>
     </div>
   </div>
+
 </body>
 
 </html>

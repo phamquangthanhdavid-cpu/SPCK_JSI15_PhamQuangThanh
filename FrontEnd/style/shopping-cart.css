@@ -78,7 +78,6 @@
 
 
 
-    /* PRODUCTS */
 table { 
     width: 100%; 
     border-collapse: collapse; 
@@ -124,7 +123,13 @@ th {
 
 
 
-
+.product-thumb {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
 
 
 
@@ -174,16 +179,6 @@ th {
       border-radius: 5px;
     }
 
-    .btn {
-      background-color: #2B80DD;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      margin-right: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 20px;
-    }
 
     .container-navbar-onner {
       margin-top: 20px;

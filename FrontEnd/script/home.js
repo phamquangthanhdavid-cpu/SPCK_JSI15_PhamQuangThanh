@@ -34,7 +34,7 @@ function loadProducts() {
 
       querySnapshot.forEach(function (doc) {
         var product = doc.data();
-        var productCard = createProductCard(product);
+        var productCard = createProductCard(product, doc.id);
         switch (product.category) {
           case "VP":
             vanPhongList.innerHTML += productCard;
@@ -56,6 +56,7 @@ function loadProducts() {
             break;
         }
       });
+      // LoadEvents();
     })
     .catch(function (error) {
       console.error("Error loading products:", error);
@@ -64,13 +65,22 @@ function loadProducts() {
     });
 }
 
-function createProductCard(product) {
+function createProductCard(product, id) {
   var price = Number(product.price) || 0;
   return `
-    <div class="product">
-      <a href="#"><img src="${product.image}" alt="${product.name}"></a>
-      <h3>${product.name}</h3>
-      <p class="price">${price.toLocaleString("vi-VN")} VND</p>
+    <div class="card" style="width: 18rem;">
+      <a href="#"><img class="card-img-top" src="${product.image}" alt="${product.name}"></a>
+      <div class="card-body">
+        <h3 class="card-title">${product.name}</h3>
+        <div class="row">
+          <div class="col-3 pe-0">
+            <button style="width:100%" type="button" class="btn btn-outline-info btn-add-to-cart" data-id="${id}"><i class="fa-solid fa-cart-plus"></i></button>
+          </div>
+          <div class="col-9">
+            <button style="width:100%" type="button" class="btn btn-primary price btn-buy" data-id="${id}">${price.toLocaleString("vi-VN")} VND</button>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 }
