@@ -16,6 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
   btnSaveProduct.addEventListener("click", async function (event) {
     event.preventDefault();
     var isValid = true;
+    clearValidationFeedback();
 
     var name = productName.value.trim();
     var price = Number(productPrice.value);
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
       productPrice.classList.add("is-invalid");
       isValid = false;
     }
-    console.log(stock)
+
     if (!Number.isInteger(stock) || stock <= 0) {
       productStock.classList.add("is-invalid");
       isValid = false;
@@ -60,43 +61,29 @@ document.addEventListener("DOMContentLoaded", function () {
     btnSaveProduct.disabled = true;
     btnSaveProduct.innerText = "Saving...";
 
-    const formData = new FormData();
-    formData.append("image", document.getElementById("product-image").files[0]);
-
-    const respone = await fetch(`${IMAGE_SERVER_URL}/upload`, {
-      method: "POST",
-      body: formData,
-    });
-
-    if (!respone.ok) {
-      console.error("Error uploading image:", respone.statusText);
-      return;
-    } else {
-      const data = await respone.json();
-      const imageUrl = data.url;
+    try {
+      const imageUrl = await uploadProductImage(imageFile);
       console.log("Image uploaded successfully:", imageUrl);
 
-      try {
-        await db.collection("product").add({
-          name: name,
-          price: price,
-          stock: stock,
-          description: description,
-          category: category,
-          image: imageUrl,
-        });
+      await db.collection("product").add({
+        name: name,
+        price: price,
+        stock: stock,
+        description: description,
+        category: category,
+        image: imageUrl,
+      });
 
-        alert("Product added successfully!");
-        clearProductForm();
-        loadProducts();
-        closeAddProductModal();
-      } catch (error) {
-        console.error("Error adding product:", error);
-        alert("Error adding product: " + error.message);
-      } finally {
-        btnSaveProduct.disabled = false;
-        btnSaveProduct.innerText = "Save changes";
-      }
+      alert("Product added successfully!");
+      clearProductForm();
+      loadProducts();
+      closeAddProductModal();
+    } catch (error) {
+      console.error("Error adding product:", error);
+      alert("Error adding product: " + error.message);
+    } finally {
+      btnSaveProduct.disabled = false;
+      btnSaveProduct.innerText = "Save changes";
     }
   });
 
@@ -127,6 +114,39 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   async function uploadProductImage(imageFile) {
+    try {
+      return await uploadImageToServer(imageFile);
+    } catch (error) {
+      console.warn("Upload server failed, using Firebase Storage instead:", error);
+      return uploadImageToFirebaseStorage(imageFile);
+    }
+  }
+
+  async function uploadImageToServer(imageFile) {
+    const formData = new FormData();
+    formData.append("image", imageFile);
+
+    const response = await fetch(`${IMAGE_SERVER_URL}/upload`, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await response.json().catch(function () {
+      return {};
+    });
+
+    if (!response.ok) {
+      throw new Error(data.error || data.message || response.statusText || "Upload image failed.");
+    }
+
+    if (!data.url) {
+      throw new Error("Upload image response does not include an image URL.");
+    }
+
+    return data.url;
+  }
+
+  async function uploadImageToFirebaseStorage(imageFile) {
     var safeFileName = imageFile.name.replace(/\s+/g, "-");
     var fileName = Date.now() + "_" + safeFileName;
     var storageRef = firebase
@@ -138,12 +158,23 @@ document.addEventListener("DOMContentLoaded", function () {
     return snapshot.ref.getDownloadURL();
   }
 
+  function clearValidationFeedback() {
+    productName.classList.remove("is-invalid");
+    productPrice.classList.remove("is-invalid");
+    productStock.classList.remove("is-invalid");
+    productCategory.classList.remove("is-invalid");
+    productDescription.classList.remove("is-invalid");
+    productImage.classList.remove("is-invalid");
+  }
+
   function clearProductForm() {
     productName.value = "";
     productPrice.value = "";
     productStock.value = "";
+    productCategory.value = "";
     productDescription.value = "";
     productImage.value = "";
+    clearValidationFeedback();
   }
 
   function closeAddProductModal() {

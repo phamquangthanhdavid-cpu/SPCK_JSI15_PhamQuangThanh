@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary').v2;
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -10,7 +11,7 @@ cloudinary.config({
 
 const uploadToCloudinary = (buffer) => {
   if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_SECRET_KEY) {
-    const error = new Error('Thiếu cấu hình Cloudinary. Hãy thêm CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_SECRET_KEYOlympian Godbreaker vào file .env');
+    const error = new Error('Thiếu cấu hình Cloudinary. Hãy thêm CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_SECRET_KEY vào file BackEnd/.env');
     error.code = 'CLOUDINARY_CONFIG_MISSING';
     throw error;
   }

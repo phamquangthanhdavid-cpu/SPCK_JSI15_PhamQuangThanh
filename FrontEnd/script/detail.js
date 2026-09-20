@@ -46,6 +46,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   setupAuthButtons();
 
+
+  
   var savedProduct = localStorage.getItem("selectedProduct");
 
   if (savedProduct) {

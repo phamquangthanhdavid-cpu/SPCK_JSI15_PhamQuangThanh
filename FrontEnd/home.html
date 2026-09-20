@@ -85,24 +85,24 @@
       <h2 class="title fs-3">Laptop Học Tập - Văn Phòng</h2>
 
       <div id="van-phong" class="product-list">
-        <div id="product" class="product">
+        <!-- <div id="product" class="product">
           <a href="./detail.html"><img src="./assets/home/vanphong/lenovo_thinkbook.jpg" alt=""></a>
           <h3>Lenovo ThinkBook 14 G8 IRL 21SG007MVA| Core 5 210H, 16GB, 512GB, Intel Graphics, 14.0 Inch WUXGA, NoOS,
             Xám</h3>
           <p class="price">21.590.000đ</p>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="gaming">
       <h2 class="title fs-3">Laptop Gaming</h2>
 
       <div id="gaming" class="product-list">
-        <div class="product">
+        <!-- <div class="product">
           <a href="./detail.html"><img src="./assets/home/gaming/AcerNitrV.jpg" alt=""></a>
           <h3>Laptop Acer Nitro V ANV15-41-R732 NH.QPESV.005 | Ryzen 5 6600H, 16GB, 512GB, RTX 4050 6GB, 15.6 inch FHD
             IPS 165Hz</h3>
-          <p class="price">27.090.000đ</p>
+          <p class="price">27.090.000đ</p> -->
         </div>
       </div>
     </div>
@@ -111,12 +111,12 @@
       <h2 class="title fs-3">Laptop Đồ Họa</h2>
 
       <div id="do-hoa" class="product-list">
-        <div class="product">
+        <!-- <div class="product">
           <a href="./detail.html"><img src="./assets/home/dohoa/ThinkPadP16sGen4.jpg" alt=""></a>
           <h3>Laptop Lenovo ThinkPad P16s Gen 4 21QV005CVA | Intel Core Ultra 7 255H, 32GB, 512GB, RTX PRO 500 6GB, 16
             inch WUXGA IPS, No OS</h3>
           <p class="price">54.990.000đ</p>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -124,11 +124,11 @@
       <h2 class="title fs-3">Laptop Mỏng Nhẹ Cao Cấp</h2>
 
       <div id="mong-nhe" class="product-list">
-        <div id="product" class="product">
+        <!-- <div id="product" class="product">
           <a href="./detail.html"><img src="./assets/home/mongnhe/DellInspiron14.jpg" alt=""></a>
           <h3>Dell Inspiron 14 5440 NKFV | Core i5-1334U, 8GB, 512GB, 14'' FHD+</h3>
           <p class="price">15.390.000đ</p>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -136,11 +136,11 @@
       <h2 class="title fs-3">Laptop Like New</h2>
 
       <div id="like-new" class="product-list">
-        <div id="product" class="product">
+        <!-- <div id="product" class="product">
           <a href="./detail.html"><img src="./assets/home/likenew/DellPrecision7560.jpg" alt=""></a>
           <h3>[Like New] Dell Precision 7560 | Core i7-11800H, 32GB, 1TB, RXT A3000, 15.6'' FHD IPS</h3>
           <p class="price">23.590.000đ</p>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -148,13 +148,24 @@
       <h2 class="title fs-3">Phụ kiện</h2>
 
       <div id="phu-kien" class="product-list">
-        <div id="product" class="product">
+        <!-- <div id="product" class="product">
           <a href="./detail.html"><img src="./assets/home/phukien/pcsn740.jpg" alt=""></a>
           <h3>Ổ cứng SSD M2 WD SN740 512GB NVMe PCIe Gen 4.0 THÁO MÁY (NEW)</h3>
           <p class="price">3.190.000đ</p>
-        </div>
+        </div> -->
 
       </div>
+    </div>
+
+    <button id="chatBtn">💬</button>
+
+    <!-- Khung chat -->
+    <div id="chatBox" class="chatbox">
+        <iframe
+        src="https://www.chatbase.co/chatbot-iframe/wxEb1p5TK3gYDEt0VVphY"
+        frameborder="0"
+        allow="microphone"
+        ></iframe>
     </div>
   </div>
 
@@ -173,6 +184,16 @@
     </div>
   </div>
 
+
+  <script>
+        const chatBtn = document.getElementById("chatBtn");
+        const chatBox = document.getElementById("chatBox");
+
+        chatBtn.addEventListener("click", () => {
+            chatBox.classList.toggle("show");
+        });
+    </script>
 </body>
+
 
 </html>
