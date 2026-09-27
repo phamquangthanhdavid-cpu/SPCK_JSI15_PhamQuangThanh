@@ -1,30 +1,22 @@
 document.addEventListener("DOMContentLoaded", function () {
   loadProducts();
-  var products = document.getElementsById("product");
-  
-  products.forEach(function (product) {
-    product.addEventListener("click", function (event) {
-      // Ngăn chặn hành vi mặc định của liên kết
-      // vd: nếu sản phẩm là một thẻ <a>, nó sẽ ngăn chặn việc điều hướng mặc định đến trang chi tiết sản phẩm
-      event.preventDefault();
+  document.addEventListener("click", function (event) {
+    // Các nút giỏ hàng/mua hàng có luồng xử lý riêng.
+    if (event.target.closest(".btn-add-to-cart, .btn-buy")) return;
 
-      var name = product.getElementById("img");
-      var image = product.getElementById("name");
-      var price = product.getElementById("price");
+    var card = event.target.closest(".product-card");
+    if (!card) return;
 
-      var productData = {
-        image: image.getAttribute("src"),
-        name: name.innerText,
-        price: price.innerText,
-      };
+    event.preventDefault();
+    var product = productCache[card.dataset.productId];
+    if (!product) return;
 
-      localStorage.setItem("selectedProduct", JSON.stringify(productData));
-      window.location.href = "./detail.html";
-    });
+    localStorage.setItem("selectedProduct", JSON.stringify(product));
+    window.location.href = "./detail.html";
   });
-
-
 });
+
+var productCache = {};
 
 function loadProducts() {
   const vanPhongList = document.getElementById("van-phong");
@@ -58,6 +50,7 @@ function loadProducts() {
 
       querySnapshot.forEach(function (doc) {
         var product = doc.data();
+        productCache[doc.id] = { ...product, id: doc.id };
         var productCard = createProductCard(product, doc.id);
         switch (product.category) {
           case "VP":
@@ -84,7 +77,7 @@ function loadProducts() {
     })
     .catch(function (error) {
       console.error("Error loading products:", error);
-      productsContainer.innerHTML =
+      vanPhongList.innerHTML =
         '<div class="alert alert-danger">Không tải được danh sách sản phẩm.</div>';
     });
 }
@@ -92,7 +85,7 @@ function loadProducts() {
 function createProductCard(product, id) {
   var price = Number(product.price) || 0;
   return `
-    <div id="product" class="card" style="width: 18rem;">
+    <div class="card product-card" data-product-id="${id}" style="width: 18rem; cursor: pointer;">
       <a href="./detail.html"><img id="image" class="card-img-top" src="${product.image}" alt="${product.name}"></a>
       <div class="card-body">
         <h3 id="name" class="card-title">${product.name}</h3>

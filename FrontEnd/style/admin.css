@@ -124,7 +124,7 @@
       border-radius: 5px;
     }
 
-    .btn {
+.btn {
       background-color: #2B80DD;
       color: white;
       border: none;
@@ -133,4 +133,59 @@
       cursor: pointer;
       font-weight: bold;
       font-size: 20px;
-    }
+}
+
+body {
+  margin: 0;
+  background: #f4f7fb;
+}
+
+.admin-layout {
+  margin-top: 0;
+  margin-bottom: 0;
+  min-height: calc(100vh - 80px);
+}
+
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 220px;
+  flex: 0 0 220px;
+  height: 100vh;
+  padding: 28px 16px;
+  background: #2B80DD;
+  color: #fff;
+}
+
+.admin-sidebar-title {
+  color: white;
+  padding: 0 14px 24px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.admin-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 14px;
+  border-radius: 6px;
+  color: #dcecff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.admin-nav-link:hover,
+.admin-nav-link.active {
+  background: #153b67;
+  color: #fff;
+}
+

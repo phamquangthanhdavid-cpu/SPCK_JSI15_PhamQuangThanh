@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   var userDropdown = document.getElementById("user-dropdown");
   var cartButton = document.getElementById("btn-cart");
 
-  logout.addEventListener("click", function () {
+  if (logout) logout.addEventListener("click", function () {
     firebase
       .auth()
       .signOut()
@@ -20,12 +20,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   firebase.auth().onAuthStateChanged(function (user) {
     if (!user) {
-        if (window.location.pathname === "/FrontEnd/admin.html" || window.location.pathname === "/FrontEnd/user-profile.html")
+        if (window.location.pathname === "/FrontEnd/admin.html" || window.location.pathname === "/FrontEnd/admin-receipt.html" || window.location.pathname === "/FrontEnd/user-profile.html")
             window.location.href = "./login.html";
         else 
             return;
     }
-    if (user.email == "admin@quangthanh.com" && window.location.pathname !== "/FrontEnd/admin.html") {
+    if (user.email == "admin@quangthanh.com" && window.location.pathname !== "/FrontEnd/admin.html" && window.location.pathname !== "/FrontEnd/admin-receipt.html") {
       window.location.href = "./admin.html";
     }
     showAuthButtons(user);
@@ -33,16 +33,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function showAuthButtons(user) {
     if (user) {
-      login.style.display = "none";
-      register.style.display = "none";
-      userDropdown.style.display = "inline-block";
-      cartButton.style.display = "inline-block";
-      document.getElementById("user-name").textContent = user.email;
+      if (login) login.style.display = "none";
+      if (register) register.style.display = "none";
+      if (userDropdown) userDropdown.style.display = "inline-block";
+      if (cartButton) cartButton.style.display = "inline-block";
+      var userName = document.getElementById("user-name");
+      if (userName) userName.textContent = user.email;
     } else {
-      login.style.display = "inline-block";
-      register.style.display = "inline-block";
-      userDropdown.style.display = "none";
-      cartButton.style.display = "none";
+      if (login) login.style.display = "inline-block";
+      if (register) register.style.display = "inline-block";
+      if (userDropdown) userDropdown.style.display = "none";
+      if (cartButton) cartButton.style.display = "none";
     }
   }
 });

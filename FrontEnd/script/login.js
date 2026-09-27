@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
-      db.collection("users")
+      db.collection("user")
         .doc(user.uid)
         .get()
         .then((doc) => {

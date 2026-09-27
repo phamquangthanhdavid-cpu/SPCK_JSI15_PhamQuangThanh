@@ -111,15 +111,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (userCredential) {
       var user = userCredential.user;
-      db.collection("users").add({
-        uid: user.uid,
-        email: email.value.trim(),
-        fullname: fullName.value.trim(),
-        phone: phoneNumber.value.trim(),
-        address: address.value.trim(),
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      });
-      window.location.href = "home.html";
+
+      try {
+        await db.collection("user").doc(user.uid).set({
+          email: user.email,
+          name: fullName.value.trim(),
+          adress: address.value.trim(),
+          "phone-number": phoneNumber.value.trim(),
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        });
+
+        window.location.href = "home.html";
+      } catch (error) {
+        console.error("Error saving user profile:", error);
+        alert("Tạo tài khoản thành công nhưng không lưu được thông tin cá nhân. Vui lòng thử lại.");
+      }
     } else {
       alert("Sign up failed. Please try again.");
       return;

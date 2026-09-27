@@ -8,7 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
   var productDescription = document.getElementById("product-description");
   var productImage = document.getElementById("product-image");
   var btnSaveProduct = document.getElementById("btn-save-product");
+  var btnAddProduct = document.getElementById("btn-add-product");
+  var modalTitle = document.getElementById("exampleModalLabel");
   const productsContainer = document.getElementById("products-container");
+  var editingProductId = null;
+  var currentImageUrl = "";
 
   loadProducts();
 
@@ -50,7 +54,7 @@ document.addEventListener("DOMContentLoaded", function () {
       isValid = false;
     }
 
-    if (!imageFile) {
+    if (!imageFile && !editingProductId) {
       productImage.classList.add("is-invalid");
       isValid = false;
     }
@@ -62,32 +66,76 @@ document.addEventListener("DOMContentLoaded", function () {
     btnSaveProduct.innerText = "Saving...";
 
     try {
-      const imageUrl = await uploadProductImage(imageFile);
-      console.log("Image uploaded successfully:", imageUrl);
-
-      await db.collection("product").add({
+      const imageUrl = imageFile
+        ? await uploadProductImage(imageFile)
+        : currentImageUrl;
+      var productData = {
         name: name,
         price: price,
         stock: stock,
         description: description,
         category: category,
         image: imageUrl,
-      });
+      };
 
-      alert("Product added successfully!");
+      if (editingProductId) {
+        await db.collection("product").doc(editingProductId).update(productData);
+        alert("Product updated successfully!");
+      } else {
+        await db.collection("product").add(productData);
+        alert("Product added successfully!");
+      }
+
       clearProductForm();
       loadProducts();
       closeAddProductModal();
     } catch (error) {
-      console.error("Error adding product:", error);
-      alert("Error adding product: " + error.message);
+      console.error("Error saving product:", error);
+      alert("Error saving product: " + error.message);
     } finally {
       btnSaveProduct.disabled = false;
-      btnSaveProduct.innerText = "Save changes";
+      btnSaveProduct.innerText = editingProductId ? "Save changes" : "Add product";
     }
   });
 
+  btnAddProduct.addEventListener("click", function () {
+    editingProductId = null;
+    currentImageUrl = "";
+    clearProductForm();
+    modalTitle.innerText = "Add Product";
+    btnSaveProduct.innerText = "Add product";
+  });
+
   document.addEventListener("click", function (event) {
+    var editButton = event.target.closest(".btn-edit");
+    if (editButton) {
+      var productId = editButton.getAttribute("data-id");
+      db.collection("product").doc(productId).get().then(function (doc) {
+        if (!doc.exists) {
+          alert("Product not found.");
+          return;
+        }
+
+        var product = doc.data();
+        editingProductId = productId;
+        currentImageUrl = product.image || "";
+        productName.value = product.name || "";
+        productPrice.value = product.price || "";
+        productStock.value = product.stock || "";
+        productCategory.value = product.category || "";
+        productDescription.value = product.description || "";
+        productImage.value = "";
+        clearValidationFeedback();
+        modalTitle.innerText = "Edit Product";
+        btnSaveProduct.innerText = "Save changes";
+        bootstrap.Modal.getOrCreateInstance(document.getElementById("addProductModal")).show();
+      }).catch(function (error) {
+        console.error("Error loading product:", error);
+        alert("Error loading product: " + error.message);
+      });
+      return;
+    }
+
     var deleteButton = event.target.closest(".btn-delete");
 
     if (!deleteButton) {
@@ -174,6 +222,9 @@ document.addEventListener("DOMContentLoaded", function () {
     productCategory.value = "";
     productDescription.value = "";
     productImage.value = "";
+    editingProductId = null;
+    currentImageUrl = "";
+    modalTitle.innerText = "Add Product";
     clearValidationFeedback();
   }
 

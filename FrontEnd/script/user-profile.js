@@ -9,7 +9,9 @@ document.addEventListener("DOMContentLoaded", function () {
   var cancelProfileBtn = document.getElementById("cancel-profile-btn");
 
   firebase.auth().onAuthStateChanged(function (user) {
-    LoadUserInfor(user)
+    if (!user) return;
+    emailInput.value = user.email || "";
+    LoadUserInfor(user);
   });
 
   editProfileBtn.addEventListener("click", function () {
@@ -26,9 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
   saveProfileBtn.addEventListener("click", async function () {
     ResetValidationStates();
     var isValid = true;
-    var nameValue = userNameInput.value;
-    var phoneValue = userPhoneInput.value;
-    var addressValue = userAddressInput.value;
+    var nameValue = userNameInput.value.trim();
+    var phoneValue = userPhoneInput.value.trim();
+    var addressValue = userAddressInput.value.trim();
 
     if (nameValue === "") {
       userNameInput.classList.add("is-invalid");
@@ -50,20 +52,25 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     var user = firebase.auth().currentUser;
-    //Cập nhật thông tin user
-    var docRef = db.collection("users").where("uid", "==", user.uid).limit(1);
-    var querySnapshot = await docRef.get();
-    querySnapshot.forEach(async (doc) => {
-      // Update the document with new values
-      await doc.ref.update({
-        fullname: nameValue,
-        phone: phoneValue,
-        address: addressValue,
-      });
-    });
+    if (!user) return;
 
-    alert("Đã cập nhật thông tin!");
-    InputControl(false);
+    saveProfileBtn.disabled = true;
+    try {
+      await db.collection("user").doc(user.uid).set({
+        email: user.email,
+        name: nameValue,
+        adress: addressValue,
+        "phone-number": phoneValue,
+      }, { merge: true });
+
+      alert("Đã cập nhật thông tin!");
+      InputControl(false);
+    } catch (error) {
+      console.error("Error updating user profile:", error);
+      alert("Không thể cập nhật thông tin. Vui lòng thử lại.");
+    } finally {
+      saveProfileBtn.disabled = false;
+    }
 
   });
 
@@ -83,17 +90,19 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function LoadUserInfor(user) {
-    db.collection("users")
-      .where("uid", "==", user.uid)
+    db.collection("user")
+      .doc(user.uid)
       .get()
-      .then((querySnapshot) => {
-        if (!querySnapshot.empty) {
-          const userData = querySnapshot.docs[0].data();
-          emailInput.value = user.email || "";
-          userNameInput.value = userData.fullname || "";
-          userPhoneInput.value = userData.phone || "";
-          userAddressInput.value = userData.address || "";
-        }
+      .then((doc) => {
+        const userData = doc.exists ? doc.data() : {};
+        emailInput.value = user.email || userData.email || "";
+        userNameInput.value = userData.name || "";
+        userPhoneInput.value = userData["phone-number"] || "";
+        userAddressInput.value = userData.adress || "";
+      })
+      .catch((error) => {
+        console.error("Error loading user profile:", error);
+        alert("Không thể tải thông tin cá nhân.");
       });
   }
 });
