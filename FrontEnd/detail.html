@@ -16,6 +16,20 @@
         integrity="sha512-PgwIBKz/MWPvQvKq7MUWB5x5aCyiiXTnAtbUGqbBvylcD/oASXh8wap5g1lWpzPmNraLXWzuWx8bkZ+reKYoyQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="./script/firebase-config.js"></script>
+    <script src="./script/navbar-check.js"></script>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.min.js"
+        integrity="sha384-G/EV+4j2dNv+tEPo3++6LCgdCROaejBqfUeNjuKAiuXbjrxilcCdDz6ZAVfHWe1Y"
+        crossorigin="anonymous"></script>
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/b47a1c1ea4.js" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="./style/detail.css">
 </head>
@@ -25,19 +39,24 @@
     <div class="container navbar-inner">
       <a href="./home.html"><div class="logo">LaptopStore</div></a>
 
-      <div class="search">
-        <input type="text" placeholder="Tìm sản phẩm">
-        <button>Tìm</button>
-      </div>
-
-      <div class="cart">
-        🛒<br><a href="./shopping-cart.html">Giỏ Hàng</a>
-      </div>
-
       <div class="buttons">
         <a id="login" href="./login.html">Login</a>
-        <a id="register" href="./register.html">Register</a>
-        <button id="logout" type="button">Logout</button>
+        <a class="ms-3" id="register" href="./register.html">Register</a>
+
+        <a href="./shopping-cart.html" class="ms-3" id="btn-cart" style="display: none;"><i
+            class="fa-solid fa-cart-shopping"></i></a>
+
+        <div class="dropdown ms-3" id="user-dropdown" style="display: none;">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <span id="user-name">User</span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="./user-profile.html">Profile</a></li>
+            <li><a class="dropdown-item" href="./order-history.html">Order History</a></li>
+            <li><a class="dropdown-item" href="#" id="logout">Logout</a></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -66,6 +85,17 @@
     </div>
 
 
+    <button id="chatBtn">💬</button>
+
+    <!-- Khung chat -->
+    <div id="chatBox" class="chatbox">
+        <iframe
+        src="https://www.chatbase.co/chatbot-iframe/wxEb1p5TK3gYDEt0VVphY"
+        frameborder="0"
+        allow="microphone"
+        ></iframe>
+    </div>
+
     <div class="footer">
     <div class="container footer-inner">
       <div>
@@ -82,6 +112,14 @@
 
     </div>
 
+    <script>
+        const chatBtn = document.getElementById("chatBtn");
+        const chatBox = document.getElementById("chatBox");
+
+        chatBtn.addEventListener("click", () => {
+            chatBox.classList.toggle("show");
+        });
+    </script>
     <script src="./script/detail.js"></script>
 </body>
 </html>
