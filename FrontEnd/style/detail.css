@@ -177,6 +177,9 @@ body {
 .add-btn {
   background: #2b80dd;
   color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .add-btn:hover {

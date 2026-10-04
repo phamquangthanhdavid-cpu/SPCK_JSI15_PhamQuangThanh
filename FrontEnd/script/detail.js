@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var image = document.querySelector("[data-product-image]");
   var name = document.querySelector("[data-product-name]");
   var price = document.querySelector("[data-product-price]");
+  var addToCartButton = document.getElementById("add-to-cart");
 
   // Hien thi san pham da chon tu localStorage
   var savedProduct = localStorage.getItem("selectedProduct");
@@ -16,6 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
       price.innerText = Number(product.price)
         ? Number(product.price).toLocaleString("vi-VN") + " VND"
         : product.price || "Liên Hệ: 0123456789";
+
+      // Gan id san pham cho nut them gio hang (buy-product.js xu ly)
+      if (addToCartButton && product.id) {
+        addToCartButton.setAttribute("data-id", product.id);
+      }
 
       var description = document.querySelector("[data-product-description]");
       if (description && product.description) {

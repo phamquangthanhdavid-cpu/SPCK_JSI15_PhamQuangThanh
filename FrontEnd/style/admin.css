@@ -189,3 +189,93 @@ body {
   color: #fff;
 }
 
+/* HOA DON IN */
+#print-receipt {
+  display: none;
+}
+
+.receipt {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 24px;
+  color: #000;
+  font-family: Arial, sans-serif;
+}
+
+.receipt-header {
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.receipt-header h1 {
+  margin: 0 0 4px;
+  font-size: 24px;
+}
+
+.receipt-header p {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+.receipt-title {
+  margin: 16px 0 8px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.receipt-info p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.receipt table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.receipt th,
+.receipt td {
+  border: 1px solid #000;
+  padding: 8px;
+}
+
+.receipt th {
+  background: #eee;
+}
+
+.receipt .text-end {
+  text-align: right;
+}
+
+.receipt .text-center {
+  text-align: center;
+}
+
+.receipt-total {
+  margin-top: 12px;
+  text-align: right;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.receipt-thanks {
+  margin-top: 24px;
+  text-align: center;
+  font-style: italic;
+}
+
+/* Khi in: an navbar va sidebar, chi hien hoa don */
+@media print {
+  .navbar,
+  .admin-layout {
+    display: none !important;
+  }
+
+  #print-receipt {
+    display: block;
+  }
+}
+
