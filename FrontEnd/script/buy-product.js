@@ -9,6 +9,13 @@ document.addEventListener("click", async function (event) {
 
   if (btnAddToCart) {
     await BtnAddToCartClick(btnAddToCart);
+    return;
+  }
+
+  var btnBuy = event.target.closest(".btn-buy");
+
+  if (btnBuy) {
+    await BtnBuyNowClick(btnBuy);
   }
 });
 
@@ -25,12 +32,43 @@ async function BtnAddToCartClick(btn) {
   btn.disabled = true;
 
   try {
+    const ok = await addToCart(user, productId);
+    if (ok) alert("Đã thêm vào giỏ hàng.");
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function BtnBuyNowClick(btn) {
+  const user = firebase.auth().currentUser;
+  if (!user) {
+    alert("Vui lòng đăng nhập để mua hàng.");
+    return;
+  }
+
+  const productId = btn.getAttribute("data-id");
+  if (!productId) return;
+
+  btn.disabled = true;
+
+  try {
+    const ok = await addToCart(user, productId);
+    if (ok) {
+      window.location.href = "./shopping-cart.html";
+    }
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// Them san pham vao gio hang, tra ve true neu thanh cong
+async function addToCart(user, productId) {
+  try {
     const productSnap = await db.collection("product").doc(productId).get();
     if (!productSnap.exists) {
       alert("Sản phẩm không tồn tại.");
-      return;
+      return false;
     }
-    const product = productSnap.data();
 
     const cartRef = db.collection("carts").doc(user.uid);
 
@@ -66,12 +104,11 @@ async function BtnAddToCartClick(btn) {
       });
     });
 
-    alert("Đã thêm vào giỏ hàng.");
+    return true;
   } catch (err) {
     console.error("Add to cart failed:", err);
     alert("Có lỗi xảy ra, vui lòng thử lại.");
-  } finally {
-    btn.disabled = false;
+    return false;
   }
 }
 
