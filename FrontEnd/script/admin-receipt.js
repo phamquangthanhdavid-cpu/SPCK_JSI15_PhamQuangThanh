@@ -15,6 +15,26 @@ var STATUS_LABELS = {
   cancelled: "Đã hủy",
 };
 
+// Nut chuyen trang thai theo trang thai hien tai cua don
+function statusButtons(orderId, status) {
+  if (status === "pending") {
+    return `
+      <button type="button" class="btn btn-info btn-sm btn-status" data-id="${orderId}" data-status="confirmed">Xác nhận</button>
+      <button type="button" class="btn btn-danger btn-sm btn-status" data-id="${orderId}" data-status="cancelled">Hủy</button>`;
+  }
+  if (status === "confirmed") {
+    return `
+      <button type="button" class="btn btn-primary btn-sm btn-status" data-id="${orderId}" data-status="shipping">Giao hàng</button>
+      <button type="button" class="btn btn-danger btn-sm btn-status" data-id="${orderId}" data-status="cancelled">Hủy</button>`;
+  }
+  if (status === "shipping") {
+    return `
+      <button type="button" class="btn btn-success btn-sm btn-status" data-id="${orderId}" data-status="completed">Hoàn thành</button>`;
+  }
+  // completed / cancelled: khong con nut cap nhat
+  return "";
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   var receiptList = document.getElementById("receipt-list");
   var receiptMessage = document.getElementById("receipt-message");
@@ -23,31 +43,47 @@ document.addEventListener("DOMContentLoaded", function () {
 
   loadReceipts();
 
+  // Lay thong tin nguoi dung theo userId
+  function getUserInfo(userId) {
+    return db.collection("user").doc(userId).get().then(function (doc) {
+      return doc.exists ? doc.data() : {};
+    });
+  }
+
   // Tai danh sach hoa don
   function loadReceipts() {
-    db.collection("orders").get().then(function (snapshot) {
+    db.collection("orders").get().then(async function (snapshot) {
       if (snapshot.empty) {
         receiptMessage.textContent = "Chưa có hóa đơn nào.";
         return;
       }
 
+      // Lay thong tin nguoi dung cho tat ca hoa don
+      var users = await Promise.all(
+        snapshot.docs.map(function (doc) {
+          var userId = doc.data().userId;
+          return userId ? getUserInfo(userId) : {};
+        })
+      );
+
       receiptMessage.textContent = "";
       receiptCount.textContent = snapshot.size + " hóa đơn";
 
-      var rows = snapshot.docs.map(function (doc) {
+      var rows = snapshot.docs.map(function (doc, i) {
         var order = doc.data();
+        var user = users[i];
         var status = STATUS_LABELS[order.status] || order.status || "-";
+        var userName = user.name || order.userId || "-";
         return `
           <tr>
             <td>#${doc.id.slice(0, 8).toUpperCase()}</td>
-            <td>${order.userId || "-"}</td>
+            <td>${userName}</td>
             <td>${formatVND(order.total)}</td>
             <td>${status}</td>
             <td>${formatDate(order.createdAt)}</td>
             <td>
               <div class="d-flex gap-1">
-                <button type="button" class="btn btn-warning btn-sm btn-status" data-id="${doc.id}" data-status="pending">Pending</button>
-                <button type="button" class="btn btn-danger btn-sm btn-status" data-id="${doc.id}" data-status="cancelled">Cancel</button>
+                ${statusButtons(doc.id, order.status)}
                 <button type="button" class="btn btn-primary btn-sm btn-print-receipt" data-id="${doc.id}"><i class="fa-solid fa-print"></i> Print</button>
               </div>
             </td>
@@ -82,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
     db.collection("orders").doc(statusButton.dataset.id).update({
       status: statusButton.dataset.status,
     }).then(function () {
-      window.location.reload();
+      loadReceipts();
     }).catch(function (error) {
       console.error("Update receipt status failed:", error);
       statusButton.disabled = false;
@@ -91,22 +127,25 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Lay hoa don tu Firestore, ve vao vung in roi mo hop thoai in
-  function printReceipt(orderId) {
-    db.collection("orders").doc(orderId).get().then(function (doc) {
+  async function printReceipt(orderId) {
+    try {
+      var doc = await db.collection("orders").doc(orderId).get();
       if (!doc.exists) {
         alert("Không tìm thấy hóa đơn.");
         return;
       }
-      renderReceipt(doc);
+      var userId = doc.data().userId;
+      var user = userId ? await getUserInfo(userId) : {};
+      renderReceipt(doc, user);
       window.print();
-    }).catch(function (error) {
+    } catch (error) {
       console.error("Print receipt failed:", error);
       alert("Không in được hóa đơn. Vui lòng thử lại.");
-    });
+    }
   }
 
   // Ve mau hoa don vao #print-receipt
-  function renderReceipt(doc) {
+  function renderReceipt(doc, user) {
     var order = doc.data();
     var products = order.products || [];
     var status = STATUS_LABELS[order.status] || order.status || "-";
@@ -135,10 +174,18 @@ document.addEventListener("DOMContentLoaded", function () {
         <div class="receipt-title">Hóa đơn bán hàng</div>
 
         <div class="receipt-info">
-          <p><strong>Mã hóa đơn:</strong> #${doc.id.slice(0, 8).toUpperCase()}</p>
-          <p><strong>Ngày:</strong> ${formatDate(order.createdAt)}</p>
-          <p><strong>Khách hàng:</strong> ${order.userId || "-"}</p>
-          <p><strong>Trạng thái:</strong> ${status}</p>
+          <div>
+            <p class="receipt-info-title">Thông tin hóa đơn</p>
+            <p><strong>Mã hóa đơn:</strong> #${doc.id.slice(0, 8).toUpperCase()}</p>
+            <p><strong>Ngày:</strong> ${formatDate(order.createdAt)}</p>
+            <p><strong>Trạng thái:</strong> ${status}</p>
+          </div>
+          <div>
+            <p class="receipt-info-title">Thông tin khách hàng</p>
+            <p><strong>Họ tên:</strong> ${user.name || order.userId || "-"}</p>
+            <p><strong>Số điện thoại:</strong> ${user["phone-number"] || "-"}</p>
+            <p><strong>Địa chỉ:</strong> ${user.adress || "-"}</p>
+          </div>
         </div>
 
         <table>

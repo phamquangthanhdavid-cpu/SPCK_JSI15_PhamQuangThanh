@@ -225,6 +225,23 @@ body {
   text-transform: uppercase;
 }
 
+.receipt-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.receipt-info > div {
+  width: 48%;
+}
+
+.receipt-info-title {
+  font-weight: bold;
+  text-transform: uppercase;
+  border-bottom: 1px solid #000;
+  padding-bottom: 4px;
+}
+
 .receipt-info p {
   margin: 4px 0;
   font-size: 14px;
